@@ -299,6 +299,15 @@ body {
   color: #b3a384;
 }
 
+.foot-credit {
+  margin-top: 7px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: none;
+  color: #c4b698;
+  font-style: italic;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-img, .hero-text, .state { animation: none; }
 }
