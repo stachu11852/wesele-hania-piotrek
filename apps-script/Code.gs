@@ -38,10 +38,9 @@ function doGet() {
 function doPost(e) {
   try {
     var payload = JSON.parse(e.postData.contents); // front wysyła text/plain z JSON-em (bez preflight CORS)
-    if (payload.action !== 'initUpload') {
-      return jsonResponse_({ ok: false, error: 'unknown_action' });
-    }
-    return jsonResponse_(initUpload_(payload));
+    if (payload.action === 'initUpload') return jsonResponse_(initUpload_(payload));
+    if (payload.action === 'checkSession') return jsonResponse_(checkSession_(payload));
+    return jsonResponse_({ ok: false, error: 'unknown_action' });
   } catch (err) {
     return jsonResponse_({ ok: false, error: 'server_error', detail: String(err) });
   }
@@ -72,6 +71,39 @@ function initUpload_(p) {
   if (!sessionUrl) return { ok: false, error: 'session_failed' };
 
   return { ok: true, uploadUrl: sessionUrl };
+}
+
+/**
+ * Sprawdza status sesji resumable po stronie serwera.
+ * Potrzebne, bo przeglądarka NIE jest w stanie odczytać finalnej odpowiedzi
+ * sesji uploadu Drive (brak nagłówków CORS na ostatnim żądaniu – znany feler
+ * Google). Serwer nie podlega CORS, więc widzi prawdziwy stan.
+ */
+function checkSession_(p) {
+  var url = String(p.sessionUrl || '');
+  var size = Number(p.size);
+  var hostMatch = /^https:\/\/([^\/]+)\//.exec(url);
+  var host = hostMatch ? hostMatch[1] : '';
+  if (!/(^|\.)googleapis\.com$|(^|\.)googleusercontent\.com$/.test(host)) {
+    return { ok: false, error: 'bad_session_url' };
+  }
+  if (!isFinite(size) || size <= 0) return { ok: false, error: 'bad_size' };
+
+  var resp = UrlFetchApp.fetch(url, {
+    method: 'put',
+    headers: { 'Content-Range': 'bytes */' + size },
+    muteHttpExceptions: true
+  });
+  var code = resp.getResponseCode();
+  if (code === 200 || code === 201) return { ok: true, done: true };
+  if (code === 308) {
+    var headers = resp.getAllHeaders();
+    var range = headers['Range'] || headers['range'] || '';
+    var m = /bytes=\d+-(\d+)/.exec(range);
+    return { ok: true, done: false, nextOffset: m ? parseInt(m[1], 10) + 1 : 0 };
+  }
+  if (code === 404 || code === 410) return { ok: true, dead: true };
+  return { ok: false, error: 'status_' + code };
 }
 
 /** Otwiera sesję resumable upload; zwraca URL sesji (tylko on idzie do przeglądarki). */

@@ -173,8 +173,26 @@ function uploadChunks(file, guestName, sessionUrl, onProgress) {
   var offset = 0;
   var retries = 0;
 
+  // Status sesji: najpierw pytamy Drive z przeglądarki; gdy przeglądarka nie może
+  // odczytać odpowiedzi (finalne żądanie sesji nie ma nagłówków CORS – znany feler
+  // Google), pytamy nasz Apps Script, który nie podlega CORS i widzi prawdziwy stan.
+  function recoverStatus() {
+    return queryProgress(sessionUrl, file.size).catch(function (err) {
+      if (err && err.kind === 'session_dead') throw err;
+      return checkSessionOnServer(sessionUrl, file.size);
+    });
+  }
+
+  function restartFile() {
+    return initSession(file, guestName).then(function (freshUrl) {
+      sessionUrl = freshUrl; offset = 0; retries = 0;
+      return step();
+    });
+  }
+
   function step() {
     var end = Math.min(offset + CHUNK_SIZE, file.size);
+    var isFinalChunk = end === file.size;
     return putChunk(sessionUrl, file.slice(offset, end), offset, end, file.size, function (loadedInChunk) {
       onProgress(offset + loadedInChunk);
     }).then(function (res) {
@@ -185,29 +203,49 @@ function uploadChunks(file, guestName, sessionUrl, onProgress) {
       return step();
     }).catch(function (err) {
       if (err && err.kind === 'session_dead') {
-        // sesja wygasła – nowa sesja, plik od zera (reszta kolejki nietknięta)
-        return initSession(file, guestName).then(function (freshUrl) {
-          sessionUrl = freshUrl; offset = 0; retries = 0;
-          return step();
-        });
+        return restartFile(); // sesja wygasła – nowa sesja, reszta kolejki nietknięta
       }
       retries++;
-      if (retries > MAX_RETRIES) throw err;
-      var delay = Math.min(30000, 1000 * Math.pow(2, retries - 1));
-      return sleep(delay).then(function () {
-        // po zerwaniu sieci pytamy Drive, ile bajtów faktycznie dotarło
-        return queryProgress(sessionUrl, file.size).then(function (st) {
+      if (retries > MAX_RETRIES) {
+        // ostatnia szansa: może plik mimo wszystko doszedł w całości
+        return recoverStatus().then(function (st) {
           if (st.done) { onProgress(file.size); return; }
-          offset = st.nextOffset;
-          return step();
-        }, function () {
-          return step(); // status nieosiągalny – ponów chunk od ostatniego potwierdzonego offsetu
-        });
+          throw err;
+        }, function () { throw err; });
+      }
+      // "błąd" na finalnym chunku to niemal zawsze ślepy CORS, nie utrata łącza –
+      // sprawdzamy status od razu, bez karnego odczekiwania
+      var delay = (isFinalChunk && retries === 1) ? 800 : Math.min(30000, 1000 * Math.pow(2, retries - 1));
+      return sleep(delay).then(recoverStatus).then(function (st) {
+        if (st.done) { onProgress(file.size); return; }
+        if (st.nextOffset > offset) retries = 0; // jest postęp – licznik prób od nowa
+        offset = st.nextOffset;
+        onProgress(offset);
+        return step();
+      }, function (err2) {
+        if (err2 && err2.kind === 'session_dead') return restartFile();
+        return step(); // status nieosiągalny – ponów chunk od ostatniego potwierdzonego offsetu
       });
     });
   }
 
   return step();
+}
+
+// Serwerowe sprawdzenie statusu sesji przez Apps Script (omija CORS).
+function checkSessionOnServer(sessionUrl, total) {
+  return fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action: 'checkSession', sessionUrl: sessionUrl, size: total })
+  }).then(function (resp) {
+    if (!resp.ok) throw { kind: 'status_http', status: resp.status };
+    return resp.json();
+  }).then(function (data) {
+    if (!data.ok) throw { kind: 'status_api', code: data.error };
+    if (data.dead) throw { kind: 'session_dead' };
+    return { done: !!data.done, nextOffset: data.nextOffset || 0 };
+  });
 }
 
 // PUT chunka przez XHR (fetch nie daje postępu wysyłania).

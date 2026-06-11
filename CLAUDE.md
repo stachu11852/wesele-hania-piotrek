@@ -90,7 +90,14 @@ Wedding_upoader/              ← root repo: github.com/stachu11852/wesele-hania
   skrypt (funkcja `setup()`), ID w `PropertiesService` (`ROOT_FOLDER_ID`). Skrypt nie ma
   dostępu do reszty prywatnego Drive.
 - Workflow zmian: front → `git push` (Pages samo się odświeża); backend →
-  `clasp --user default push` + Wdróż → Zarządzaj wdrożeniami → Nowa wersja (URL bez zmian).
+  `clasp --user default push` + `clasp --user default deploy -i <deploymentId>` (URL bez zmian).
+- **Pułapka CORS (rozwiązana):** przeglądarka NIE odczyta finalnej odpowiedzi sesji resumable
+  Drive (brak nagłówków CORS na żądaniu kończącym plik i wszystkich późniejszych – feler Google;
+  pośrednie chunki 308 + nagłówek Range działają normalnie). Dlatego front przy błędzie pyta
+  Apps Script (`action: checkSession`), który robi PUT `bytes */total` po stronie serwera
+  i zwraca {done|nextOffset|dead}. Nie "naprawiać" tego przez retry w przeglądarce.
+- Wersjonowanie zasobów: `index.html` ładuje `style.css?v=N` i `app.js?v=N` – przy każdej
+  zmianie tych plików podbij N (inaczej cache CDN/przeglądarek może rozjechać HTML i CSS/JS).
 
 ## Znane ryzyka do zweryfikowania w implementacji
 
