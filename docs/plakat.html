@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plakat QR – Hania &amp; Piotrek (druk A4)</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #33281c;
+      --muted: #80705a;
+      --gold: #b08c4f;
+      --gold-deep: #93713a;
+      --line: #d9c9a6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #e8e2d6;
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      padding: 24px 0;
+    }
+
+    .a4 {
+      width: 210mm;
+      height: 296mm;
+      background: #fdfaf3;
+      padding: 14mm;
+      box-shadow: 0 10px 40px rgba(0,0,0,.2);
+    }
+
+    .frame {
+      height: 100%;
+      border: 1.2pt solid var(--gold);
+      outline: 0.4pt solid var(--gold);
+      outline-offset: 2.2mm;
+      padding: 12mm 14mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .kicker {
+      font-size: 11.5pt;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 500;
+      font-size: 42pt;
+      line-height: 1.05;
+      margin-top: 4mm;
+    }
+
+    h1 .amp { font-style: italic; color: var(--gold); font-size: .8em; }
+
+    .date {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 15pt;
+      color: var(--muted);
+      margin-top: 2mm;
+    }
+
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 4mm;
+      width: 70mm;
+      margin: 6mm 0;
+      color: var(--gold);
+    }
+    .rule::before, .rule::after {
+      content: "";
+      flex: 1;
+      height: .4pt;
+      background: var(--gold);
+    }
+
+    h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 23pt;
+      line-height: 1.2;
+    }
+
+    .qr {
+      width: 105mm;
+      height: 105mm;
+      margin: 7mm 0 6mm;
+      padding: 5mm;
+      border: .6pt solid var(--line);
+      background: #fff;
+    }
+
+    .qr img { width: 100%; height: 100%; display: block; }
+
+    .steps {
+      list-style: none;
+      display: flex;
+      gap: 8mm;
+      margin-top: 2mm;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .steps li {
+      flex: 1;
+      max-width: 50mm;
+      font-size: 11pt;
+      line-height: 1.4;
+    }
+
+    .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 9mm;
+      height: 9mm;
+      border-radius: 50%;
+      border: .8pt solid var(--gold);
+      color: var(--gold-deep);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 14pt;
+      margin-bottom: 2.5mm;
+    }
+
+    .note {
+      margin-top: auto;
+      font-style: italic;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 13pt;
+      color: var(--muted);
+    }
+
+    .heart { color: var(--gold); font-size: 12pt; margin-top: 2mm; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .a4 { box-shadow: none; width: auto; height: auto; }
+      @page { size: A4 portrait; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="a4">
+    <div class="frame">
+      <p class="kicker">13 czerwca 2026</p>
+      <h1>Hania <span class="amp">&amp;</span> Piotrek</h1>
+      <p class="date">dziękują, że jesteście tu z nami</p>
+
+      <div class="rule">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21s-7.5-4.9-10-9.3C.2 8.4 2 5 5.5 5 7.7 5 9.4 6.3 12 9c2.6-2.7 4.3-4 6.5-4C22 5 23.8 8.4 22 11.7 19.5 16.1 12 21 12 21z"/></svg>
+      </div>
+
+      <h2>Podzielcie się z nami<br>swoimi zdjęciami i filmami!</h2>
+
+      <div class="qr">
+        <img src="assets/qr.svg" alt="Kod QR do strony ze zdjęciami">
+      </div>
+
+      <ol class="steps">
+        <li><span class="num">1</span><br>Zeskanuj kod aparatem telefonu</li>
+        <li><span class="num">2</span><br>Wpisz swoje imię</li>
+        <li><span class="num">3</span><br>Wybierz zdjęcia i filmy — wyślą się w oryginalnej jakości</li>
+      </ol>
+
+      <p class="note">Działa też po weselu — duże filmy możesz dosłać z domu.</p>
+      <p class="heart">♥</p>
+    </div>
+  </div>
+</body>
+</html>

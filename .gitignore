@@ -1,0 +1,9 @@
+# oryginalne zdjęcia pary – prywatne, duże; w repo są tylko zoptymalizowane wersje w docs/assets
+zdjecia/
+foto_src/
+files.zip
+
+# powiązanie z projektem Apps Script – nie publikujemy scriptId
+.clasp.json
+
+node_modules/

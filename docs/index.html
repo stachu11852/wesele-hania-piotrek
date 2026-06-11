@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Hania &amp; Piotrek – podzielcie się zdjęciami</title>
+  <meta name="description" content="Wyślij nam swoje zdjęcia i filmy z wesela – w oryginalnej jakości, bez instalowania czegokolwiek.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#221a10">
+  <link rel="preload" as="image" href="assets/hero.webp" type="image/webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ====== HERO ====== -->
+  <header class="hero">
+    <picture>
+      <source srcset="assets/hero.webp" type="image/webp">
+      <img class="hero-img" src="assets/hero.jpg" alt="Hania i Piotrek w tańcu" fetchpriority="high">
+    </picture>
+    <div class="hero-shade"></div>
+    <div class="hero-text">
+      <p class="hero-kicker">13 czerwca 2026</p>
+      <h1 class="hero-names">Hania <span class="amp">&amp;</span> Piotrek</h1>
+      <div class="gold-rule" aria-hidden="true"><span></span><svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 21s-7.5-4.9-10-9.3C.2 8.4 2 5 5.5 5 7.7 5 9.4 6.3 12 9c2.6-2.7 4.3-4 6.5-4C22 5 23.8 8.4 22 11.7 19.5 16.1 12 21 12 21z"/></svg><span></span></div>
+    </div>
+  </header>
+
+  <main class="sheet">
+
+    <!-- ====== STAN 1: START ====== -->
+    <section id="state-start" class="state">
+      <h2 class="title">Podzielcie się z&nbsp;nami swoimi zdjęciami</h2>
+      <p class="lead">Zdjęcia i&nbsp;filmy trafią do nas w&nbsp;pełnej, oryginalnej jakości — prosto z&nbsp;Waszego telefonu. Bez aplikacji, bez logowania.</p>
+
+      <form id="start-form" novalidate>
+        <label class="field-label" for="guest-name">Twoje imię</label>
+        <input id="guest-name" class="field" type="text" inputmode="text" autocomplete="given-name"
+               maxlength="50" placeholder="np. Kasia z Poznania">
+        <button id="pick-btn" class="btn-gold" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M4 5h3.2l1.3-2h7l1.3 2H20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm8 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2.2a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z"/></svg>
+          Wybierz zdjęcia i&nbsp;filmy
+        </button>
+        <input id="file-input" type="file" multiple accept="image/*,video/*" hidden>
+      </form>
+
+      <p class="hint">Duże filmy możesz spokojnie dosłać po weselu z&nbsp;domowego Wi&#8209;Fi — ten sam kod QR.</p>
+    </section>
+
+    <!-- ====== STAN 2: WYSYŁKA ====== -->
+    <section id="state-upload" class="state hidden" aria-live="polite">
+      <h2 class="title">Wysyłamy…</h2>
+      <p id="upload-counter" class="upload-counter">Plik 1 z 1</p>
+      <div class="bar"><div id="bar-fill" class="bar-fill"></div></div>
+      <p id="upload-bytes" class="upload-bytes">0 MB z 0 MB</p>
+      <p id="upload-current" class="upload-current"></p>
+      <div class="keep-awake">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zm-2 19a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.5h-4v.5z"/></svg>
+        Nie blokuj ekranu i&nbsp;nie zamykaj tej strony, dopóki wysyłka trwa.
+      </div>
+    </section>
+
+    <!-- ====== STAN 3: PODZIĘKOWANIE ====== -->
+    <section id="state-done" class="state hidden">
+      <picture>
+        <source srcset="assets/sparklers.webp" type="image/webp">
+        <img class="done-img" src="assets/sparklers.jpg" alt="Hania i Piotrek wśród zimnych ogni" loading="lazy">
+      </picture>
+      <h2 class="title">Dziękujemy!</h2>
+      <p id="done-summary" class="lead">Wysłano 0 plików.</p>
+      <p id="done-skipped" class="hint hidden"></p>
+      <button id="more-btn" class="btn-gold btn-outline" type="button">Dodaj więcej zdjęć</button>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <p>Hania &amp; Piotrek · 13.06.2026</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

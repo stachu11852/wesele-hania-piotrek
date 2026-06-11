@@ -1,0 +1,302 @@
+/* Wesele Upload – estetyka "golden hour": kość słoniowa, szampan, delikatne złoto */
+
+:root {
+  --ivory: #faf6ef;
+  --paper: #fffdf8;
+  --ink: #33281c;
+  --muted: #80705a;
+  --gold: #b08c4f;
+  --gold-deep: #93713a;
+  --line: #e7ddc9;
+  --shadow: 0 18px 40px -18px rgba(51, 40, 28, .35);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====== HERO ====== */
+
+.hero {
+  position: relative;
+  height: min(58vh, 540px);
+  min-height: 380px;
+  overflow: hidden;
+  background: #221a10;
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 32%;
+  animation: kenburns 24s ease-out forwards;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(34, 26, 16, .18) 0%,
+      rgba(34, 26, 16, 0) 35%,
+      rgba(34, 26, 16, .42) 78%,
+      rgba(34, 26, 16, .72) 100%);
+}
+
+.hero-text {
+  position: absolute;
+  left: 0; right: 0; bottom: 26px;
+  text-align: center;
+  color: #fdf9f0;
+  padding: 0 20px;
+  animation: rise .9s ease-out both .15s;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-kicker {
+  font-size: 14px;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: #e9d9b8;
+  margin-bottom: 6px;
+}
+
+.hero-names {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(42px, 11vw, 64px);
+  line-height: 1.05;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, .35);
+}
+
+.hero-names .amp {
+  font-style: italic;
+  color: #e3c98c;
+  font-size: .75em;
+  padding: 0 .06em;
+}
+
+.gold-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+  color: #d9bd80;
+}
+
+.gold-rule span {
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d9bd80);
+}
+
+.gold-rule span:last-child {
+  background: linear-gradient(to left, transparent, #d9bd80);
+}
+
+/* ====== KARTA / STANY ====== */
+
+.sheet {
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: -34px auto 0;
+  padding: 0 16px 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.state {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 30px 22px 28px;
+  text-align: center;
+  animation: rise .6s ease-out both;
+}
+
+.hidden { display: none !important; }
+
+.title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.lead { color: var(--muted); margin-bottom: 22px; }
+
+.field-label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 0 2px 8px;
+}
+
+.field {
+  width: 100%;
+  font-size: 19px;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 15px 16px;
+  margin-bottom: 18px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.field:focus { border-color: var(--gold); }
+
+.btn-gold {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 58px;
+  font-size: 19px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: linear-gradient(135deg, #c5a05e, var(--gold-deep));
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(147, 113, 58, .55);
+  transition: transform .15s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-gold:active { transform: scale(.985); box-shadow: 0 6px 14px -8px rgba(147, 113, 58, .55); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold-deep);
+  border: 1.5px solid var(--gold);
+  box-shadow: none;
+}
+
+.hint {
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ====== WYSYŁKA ====== */
+
+.upload-counter {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.bar {
+  height: 14px;
+  background: #efe7d6;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #d9b873, var(--gold-deep));
+  transition: width .35s ease;
+}
+
+.upload-bytes {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.upload-current {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: 1.4em;
+}
+
+.keep-awake {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  margin-top: 22px;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: #7a5c2e;
+  background: #f7eeda;
+  border: 1px solid #ecdfc0;
+  border-radius: 12px;
+}
+
+.keep-awake svg { flex: none; color: var(--gold-deep); }
+
+/* ====== PODZIĘKOWANIE ====== */
+
+.done-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+#done-summary { margin-bottom: 6px; }
+
+#done-skipped { margin: 0 0 6px; color: #a4642e; }
+
+#more-btn { margin-top: 18px; }
+
+/* ====== STOPKA ====== */
+
+.foot {
+  text-align: center;
+  padding: 10px 0 26px;
+  font-size: 13px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #b3a384;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-img, .hero-text, .state { animation: none; }
+}
