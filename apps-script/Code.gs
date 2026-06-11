@@ -14,7 +14,7 @@
  */
 
 var CONFIG = {
-  ROOT_FOLDER_NAME: 'Wesele Hani i Piotrka – zdjęcia od gości',
+  ROOT_FOLDER_NAME: '(nie) Wesele Hani i Piotrka – zdjęcia od gości',
   MAX_FILE_SIZE: 2 * 1024 * 1024 * 1024, // 2 GB na plik
   MAX_NAME_LENGTH: 50,
   FALLBACK_GUEST_NAME: 'Gość'

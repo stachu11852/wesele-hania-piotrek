@@ -27,7 +27,7 @@ Tego nie da się zrobić automatycznie – wymaga kliknięcia na Twoim koncie Go
 5. Google pokaże ostrzeżenie „Aplikacja niezweryfikowana" (normalne – to Twój własny skrypt):
    kliknij **Zaawansowane** → **Otwórz: Wesele Upload… (niebezpieczne)** → **Zezwól**.
 6. Po chwili na dole w „Dzienniku wykonania" zobaczysz link do folderu
-   **„Wesele Hani i Piotrka – zdjęcia od gości"** na Twoim Drive. Tam będą lądować pliki.
+   **„(nie) Wesele Hani i Piotrka – zdjęcia od gości"** na Twoim Drive. Tam będą lądować pliki.
 
 ## Test po autoryzacji (5 minut)
 
@@ -41,7 +41,7 @@ Tego nie da się zrobić automatycznie – wymaga kliknięcia na Twoim koncie Go
 
 2. Otwórz na telefonie: https://haniaipiotrek.pl/
    wpisz imię „Test", wyślij 2–3 zdjęcia i krótki film.
-3. Sprawdź na Drive: folder `Wesele Hani i Piotrka – zdjęcia od gości / Test /` –
+3. Sprawdź na Drive: folder `(nie) Wesele Hani i Piotrka – zdjęcia od gości / Test /` –
    pliki mają być w **oryginalnym rozmiarze** (porównaj MB z telefonem).
 4. Test zrywania sieci: zacznij wysyłać film, włącz tryb samolotowy na 30 s, wyłącz –
    wysyłka ma się sama dokończyć.
