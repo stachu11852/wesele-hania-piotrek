@@ -64,7 +64,7 @@ body {
 
 .hero-text {
   position: absolute;
-  left: 0; right: 0; bottom: 26px;
+  left: 0; right: 0; bottom: 58px; /* nad kartą formularza (nachodzi 34px na hero) */
   text-align: center;
   color: #fdf9f0;
   padding: 0 20px;
