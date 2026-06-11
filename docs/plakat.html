@@ -7,20 +7,20 @@
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #33281c;
-      --muted: #80705a;
+      --ink: #34291a;
+      --muted: #82715a;
       --gold: #b08c4f;
-      --gold-deep: #93713a;
+      --gold-deep: #8f6d36;
       --line: #d9c9a6;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: "Jost", "Segoe UI", Arial, sans-serif;
       background: #e8e2d6;
       color: var(--ink);
       display: flex;
@@ -31,17 +31,34 @@
     .a4 {
       width: 210mm;
       height: 296mm;
-      background: #fdfaf3;
-      padding: 14mm;
+      background: #fbf6ec;
+      padding: 13mm;
       box-shadow: 0 10px 40px rgba(0,0,0,.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* znak wodny – ampersand */
+    .watermark {
+      position: absolute;
+      right: -16mm;
+      bottom: 8mm;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 150mm;
+      line-height: 1;
+      color: var(--gold);
+      opacity: .05;
+      pointer-events: none;
     }
 
     .frame {
+      position: relative;
       height: 100%;
       border: 1.2pt solid var(--gold);
       outline: 0.4pt solid var(--gold);
       outline-offset: 2.2mm;
-      padding: 12mm 14mm;
+      padding: 13mm 14mm 11mm;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -49,35 +66,42 @@
     }
 
     .kicker {
-      font-size: 11.5pt;
-      letter-spacing: .34em;
-      text-transform: uppercase;
+      font-size: 12pt;
+      font-weight: 500;
+      letter-spacing: .42em;
+      text-indent: .42em;
       color: var(--gold-deep);
     }
 
     h1 {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-weight: 500;
-      font-size: 42pt;
+      font-family: "Great Vibes", cursive;
+      font-weight: 400;
+      font-size: 52pt;
       line-height: 1.05;
-      margin-top: 4mm;
+      margin-top: 5mm;
     }
 
-    h1 .amp { font-style: italic; color: var(--gold); font-size: .8em; }
+    h1 .amp {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      color: var(--gold-deep);
+      font-size: .55em;
+      vertical-align: .1em;
+    }
 
     .date {
       font-family: "Cormorant Garamond", Georgia, serif;
       font-style: italic;
       font-size: 15pt;
       color: var(--muted);
-      margin-top: 2mm;
+      margin-top: 2.5mm;
     }
 
     .rule {
       display: flex;
       align-items: center;
       gap: 4mm;
-      width: 70mm;
+      width: 72mm;
       margin: 6mm 0;
       color: var(--gold);
     }
@@ -91,45 +115,58 @@
     h2 {
       font-family: "Cormorant Garamond", Georgia, serif;
       font-weight: 600;
-      font-size: 23pt;
-      line-height: 1.2;
+      font-size: 24pt;
+      line-height: 1.22;
     }
 
-    .qr {
-      width: 105mm;
-      height: 105mm;
-      margin: 7mm 0 6mm;
-      padding: 5mm;
-      border: .6pt solid var(--line);
+    /* QR w ramce ze złotymi narożnikami */
+    .qr-wrap {
+      position: relative;
+      margin: 8mm 0 7mm;
+      padding: 6mm;
       background: #fff;
+      border: .5pt solid var(--line);
     }
 
-    .qr img { width: 100%; height: 100%; display: block; }
+    .corner {
+      position: absolute;
+      width: 9mm;
+      height: 9mm;
+      border-color: var(--gold);
+      border-style: solid;
+      border-width: 0;
+    }
+    .c1 { top: -1.2mm; left: -1.2mm; border-top-width: 1.4pt; border-left-width: 1.4pt; }
+    .c2 { top: -1.2mm; right: -1.2mm; border-top-width: 1.4pt; border-right-width: 1.4pt; }
+    .c3 { bottom: -1.2mm; left: -1.2mm; border-bottom-width: 1.4pt; border-left-width: 1.4pt; }
+    .c4 { bottom: -1.2mm; right: -1.2mm; border-bottom-width: 1.4pt; border-right-width: 1.4pt; }
+
+    .qr-wrap img { width: 96mm; height: 96mm; display: block; }
 
     .steps {
       list-style: none;
       display: flex;
       gap: 8mm;
-      margin-top: 2mm;
+      margin-top: 3mm;
       width: 100%;
       justify-content: center;
     }
 
     .steps li {
       flex: 1;
-      max-width: 50mm;
-      font-size: 11pt;
-      line-height: 1.4;
+      max-width: 52mm;
+      font-size: 11.5pt;
+      line-height: 1.45;
     }
 
     .num {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 9mm;
-      height: 9mm;
+      width: 9.5mm;
+      height: 9.5mm;
       border-radius: 50%;
-      border: .8pt solid var(--gold);
+      border: .9pt solid var(--gold);
       color: var(--gold-deep);
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: 14pt;
@@ -138,9 +175,9 @@
 
     .note {
       margin-top: auto;
-      font-style: italic;
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 13pt;
+      font-style: italic;
+      font-size: 13.5pt;
       color: var(--muted);
     }
 
@@ -155,18 +192,21 @@
 </head>
 <body>
   <div class="a4">
+    <div class="watermark" aria-hidden="true">&amp;</div>
     <div class="frame">
-      <p class="kicker">13 czerwca 2026</p>
+      <p class="kicker">13 &middot; 06 &middot; 2026</p>
       <h1>Hania <span class="amp">&amp;</span> Piotrek</h1>
-      <p class="date">dziękują, że jesteście tu z nami</p>
+      <p class="date">dziękują, że jesteście tu z nimi</p>
 
       <div class="rule">
-        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21s-7.5-4.9-10-9.3C.2 8.4 2 5 5.5 5 7.7 5 9.4 6.3 12 9c2.6-2.7 4.3-4 6.5-4C22 5 23.8 8.4 22 11.7 19.5 16.1 12 21 12 21z"/></svg>
+        <svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M12 21s-7.5-4.9-10-9.3C.2 8.4 2 5 5.5 5 7.7 5 9.4 6.3 12 9c2.6-2.7 4.3-4 6.5-4C22 5 23.8 8.4 22 11.7 19.5 16.1 12 21 12 21z"/></svg>
       </div>
 
       <h2>Podzielcie się z nami<br>swoimi zdjęciami i filmami!</h2>
 
-      <div class="qr">
+      <div class="qr-wrap">
+        <span class="corner c1"></span><span class="corner c2"></span>
+        <span class="corner c3"></span><span class="corner c4"></span>
         <img src="assets/qr.svg" alt="Kod QR do strony ze zdjęciami">
       </div>
 

@@ -7,3 +7,4 @@ files.zip
 .clasp.json
 
 node_modules/
+preview_*.png

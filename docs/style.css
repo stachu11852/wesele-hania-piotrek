@@ -1,14 +1,18 @@
-/* Wesele Upload – estetyka "golden hour": kość słoniowa, szampan, delikatne złoto */
+/* ============================================================
+   Wesele Upload – "Zaproszenie w złotej godzinie"
+   Estetyka eleganckiego zaproszenia ślubnego: papier w kolorze
+   kości słoniowej, fotografia w łuku, kaligrafia, złote linie.
+   ============================================================ */
 
 :root {
-  --ivory: #faf6ef;
-  --paper: #fffdf8;
-  --ink: #33281c;
-  --muted: #80705a;
+  --paper: #f7f1e5;
+  --paper-deep: #efe6d3;
+  --ink: #34291a;
+  --muted: #82715a;
   --gold: #b08c4f;
-  --gold-deep: #93713a;
-  --line: #e7ddc9;
-  --shadow: 0 18px 40px -18px rgba(51, 40, 28, .35);
+  --gold-deep: #8f6d36;
+  --gold-pale: #d9c294;
+  --line: #dccfae;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,151 +20,216 @@
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--ivory);
+  background:
+    radial-gradient(120% 60% at 50% 0%, #fbf7ee 0%, var(--paper) 55%, var(--paper-deep) 100%);
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 17px;
-  line-height: 1.55;
+  font-family: "Jost", "Segoe UI", Arial, sans-serif;
+  font-size: 17.5px;
+  line-height: 1.6;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-}
-
-/* ====== HERO ====== */
-
-.hero {
+  align-items: center;
+  overflow-x: hidden;
   position: relative;
-  height: min(58vh, 540px);
-  min-height: 380px;
-  overflow: hidden;
-  background: #221a10;
 }
 
-.hero-img {
-  position: absolute;
+/* Delikatna faktura papieru – czysty CSS, zero plików */
+body::before {
+  content: "";
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 32%;
-  animation: kenburns 24s ease-out forwards;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .26 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@keyframes kenburns {
-  from { transform: scale(1.08); }
-  to   { transform: scale(1); }
+/* Gigantyczny ampersand w tle – znak wodny zaproszenia */
+.amp-watermark {
+  position: fixed;
+  z-index: 0;
+  right: -6vw;
+  top: 30vh;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 64vh;
+  line-height: 1;
+  color: var(--gold);
+  opacity: .055;
+  pointer-events: none;
+  user-select: none;
 }
 
-.hero-shade {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom,
-      rgba(34, 26, 16, .18) 0%,
-      rgba(34, 26, 16, 0) 35%,
-      rgba(34, 26, 16, .42) 78%,
-      rgba(34, 26, 16, .72) 100%);
-}
+/* ====== Wejście strony: kaskada odsłonięć ====== */
 
-.hero-text {
-  position: absolute;
-  left: 0; right: 0; bottom: 26px;
-  text-align: center;
-  color: #fdf9f0;
-  padding: 0 20px;
-  animation: rise .9s ease-out both .15s;
-}
+.reveal { animation: rise .85s cubic-bezier(.2, .7, .3, 1) both; }
+.r1 { animation-delay: .05s; }
+.r2 { animation-delay: .15s; }
+.r3 { animation-delay: .40s; }
+.r4 { animation-delay: .55s; }
+.r5 { animation-delay: .70s; }
+.r6 { animation-delay: .85s; }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: none; }
 }
 
-.hero-kicker {
+/* ====== NAGŁÓWEK ====== */
+
+.invite-head {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  padding: max(26px, env(safe-area-inset-top)) 26px 0;
+  text-align: center;
+}
+
+.kicker {
   font-size: 14px;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: #e9d9b8;
-  margin-bottom: 6px;
-}
-
-.hero-names {
-  font-family: "Cormorant Garamond", Georgia, serif;
   font-weight: 500;
-  font-size: clamp(42px, 11vw, 64px);
-  line-height: 1.05;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, .35);
+  letter-spacing: .42em;
+  text-indent: .42em;
+  color: var(--gold-deep);
+  margin-bottom: 18px;
 }
 
-.hero-names .amp {
+/* Fotografia w łuku – motyw arkady ślubnej */
+.arch {
+  position: relative;
+  width: min(78vw, 330px);
+  margin: 0 auto;
+  border-radius: 999px 999px 14px 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 50px -22px rgba(52, 41, 26, .45);
+}
+
+/* podwójna złota obwódka wokół łuku */
+.arch::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(247, 241, 229, .65);
+  border-radius: 999px 999px 9px 9px;
+  pointer-events: none;
+}
+
+.invite-head .arch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(52, 41, 26, .18), transparent 40%);
+}
+
+.arch-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 6.4;
+  object-fit: cover;
+  object-position: 50% 30%;
+  animation: kenburns 26s ease-out forwards;
+}
+
+.arch-small { width: min(64vw, 250px); margin-bottom: 22px; }
+.arch-small .arch-img { aspect-ratio: 5 / 5.6; }
+
+@keyframes kenburns {
+  from { transform: scale(1.09); }
+  to   { transform: scale(1); }
+}
+
+/* Imiona – kaligrafia nachodząca na fotografię */
+.names {
+  position: relative;
+  z-index: 2;
+  margin-top: -34px;
+  font-family: "Great Vibes", "Cormorant Garamond", cursive;
+  font-weight: 400;
+  font-size: clamp(40px, 10.5vw, 62px);
+  line-height: 1.08;
+  color: var(--ink);
+  text-shadow:
+    0 1px 0 var(--paper), 1px 0 0 var(--paper), -1px 0 0 var(--paper),
+    0 -1px 0 var(--paper), 0 6px 24px rgba(247, 241, 229, .9);
+}
+
+.names .amp {
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-style: italic;
-  color: #e3c98c;
-  font-size: .75em;
-  padding: 0 .06em;
+  font-size: .52em;
+  color: var(--gold-deep);
+  padding: 0 .08em;
+  vertical-align: .08em;
 }
 
-.gold-rule {
+.ornament {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 14px;
-  color: #d9bd80;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--gold);
 }
 
-.gold-rule span {
-  display: block;
-  width: 64px;
+.orn-line {
+  width: 74px;
   height: 1px;
-  background: linear-gradient(to right, transparent, #d9bd80);
+  background: linear-gradient(to right, transparent, var(--gold));
 }
 
-.gold-rule span:last-child {
-  background: linear-gradient(to left, transparent, #d9bd80);
+.orn-line:last-child {
+  background: linear-gradient(to left, transparent, var(--gold));
 }
 
-/* ====== KARTA / STANY ====== */
+/* ====== TREŚĆ ====== */
 
-.sheet {
+.invite-body {
+  position: relative;
+  z-index: 1;
   flex: 1;
   width: 100%;
   max-width: 480px;
-  margin: -34px auto 0;
-  padding: 0 16px 32px;
-  position: relative;
-  z-index: 2;
+  padding: 26px 26px 30px;
 }
 
-.state {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  padding: 30px 22px 28px;
-  text-align: center;
-  animation: rise .6s ease-out both;
-}
+.state { text-align: center; }
 
 .hidden { display: none !important; }
 
 .title {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-weight: 600;
-  font-size: 30px;
-  line-height: 1.2;
+  font-size: 31px;
+  line-height: 1.18;
   margin-bottom: 12px;
+  text-wrap: balance;
 }
 
-.lead { color: var(--muted); margin-bottom: 22px; }
+.script-title {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-size: 58px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.lead { color: var(--muted); margin-bottom: 26px; }
+
+/* ====== FORMULARZ ====== */
 
 .field-label {
   display: block;
   text-align: left;
-  font-size: 14px;
-  letter-spacing: .14em;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--gold-deep);
-  margin: 0 2px 8px;
+  margin: 0 2px 9px;
 }
 
 .field {
@@ -168,49 +237,79 @@ body {
   font-size: 19px;
   font-family: inherit;
   color: var(--ink);
-  background: #fff;
-  border: 1.5px solid var(--line);
-  border-radius: 12px;
-  padding: 15px 16px;
-  margin-bottom: 18px;
+  background: rgba(255, 253, 248, .85);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 17px;
+  margin-bottom: 20px;
   outline: none;
-  transition: border-color .2s;
+  box-shadow: inset 0 1px 3px rgba(52, 41, 26, .05);
+  transition: border-color .25s, box-shadow .25s;
 }
 
-.field:focus { border-color: var(--gold); }
+.field::placeholder { color: #b6a68b; }
+
+.field:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(176, 140, 79, .16);
+}
 
 .btn-gold {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 11px;
   width: 100%;
-  min-height: 58px;
+  min-height: 60px;
   font-size: 19px;
   font-weight: 600;
   font-family: inherit;
-  color: #fff;
-  background: linear-gradient(135deg, #c5a05e, var(--gold-deep));
+  letter-spacing: .02em;
+  color: #fff8ea;
+  background: linear-gradient(160deg, #c9a35d 0%, var(--gold-deep) 70%);
   border: none;
-  border-radius: 14px;
-  padding: 14px 18px;
+  border-radius: 4px;
+  padding: 15px 20px;
   cursor: pointer;
-  box-shadow: 0 10px 24px -10px rgba(147, 113, 58, .55);
+  overflow: hidden;
+  box-shadow: 0 14px 28px -12px rgba(143, 109, 54, .6);
   transition: transform .15s, box-shadow .15s;
   -webkit-tap-highlight-color: transparent;
 }
 
-.btn-gold:active { transform: scale(.985); box-shadow: 0 6px 14px -8px rgba(147, 113, 58, .55); }
+/* przesuwający się blik "złotej folii" */
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(105deg, transparent, rgba(255, 248, 230, .35), transparent);
+  animation: foil 4.5s ease-in-out infinite;
+}
+
+@keyframes foil {
+  0%, 60% { left: -60%; }
+  100% { left: 130%; }
+}
+
+.btn-gold:active {
+  transform: scale(.984);
+  box-shadow: 0 8px 16px -10px rgba(143, 109, 54, .6);
+}
 
 .btn-outline {
   background: transparent;
   color: var(--gold-deep);
-  border: 1.5px solid var(--gold);
+  border: 1px solid var(--gold);
   box-shadow: none;
 }
 
+.btn-outline::after { display: none; }
+
 .hint {
-  margin-top: 18px;
+  margin-top: 20px;
   font-size: 15px;
   color: var(--muted);
 }
@@ -218,36 +317,51 @@ body {
 /* ====== WYSYŁKA ====== */
 
 .upload-counter {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 16px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 27px;
+  margin: 6px 0 22px;
 }
 
 .bar {
-  height: 14px;
-  background: #efe7d6;
+  position: relative;
+  height: 7px;
+  background: var(--line);
   border-radius: 99px;
-  overflow: hidden;
+  margin: 0 8px;
 }
 
 .bar-fill {
+  position: relative;
   height: 100%;
   width: 0%;
   border-radius: 99px;
-  background: linear-gradient(90deg, #d9b873, var(--gold-deep));
+  background: linear-gradient(90deg, var(--gold-pale), var(--gold-deep));
   transition: width .35s ease;
 }
 
+/* serduszko wędrujące po złotej nici postępu */
+.bar-fill::after {
+  content: "♥";
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-54%);
+  font-size: 15px;
+  color: var(--gold-deep);
+  text-shadow: 0 0 6px var(--paper);
+}
+
 .upload-bytes {
-  margin-top: 10px;
-  font-size: 16px;
+  margin-top: 16px;
+  font-size: 16.5px;
   color: var(--muted);
 }
 
 .upload-current {
-  margin-top: 4px;
+  margin-top: 3px;
   font-size: 14px;
-  color: var(--muted);
+  color: #a4937a;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -257,46 +371,62 @@ body {
 .keep-awake {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   text-align: left;
-  margin-top: 22px;
-  padding: 12px 14px;
+  margin-top: 26px;
+  padding: 13px 15px;
   font-size: 15px;
-  color: #7a5c2e;
-  background: #f7eeda;
-  border: 1px solid #ecdfc0;
-  border-radius: 12px;
+  color: #7d5e2c;
+  background: rgba(255, 252, 244, .7);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
 }
 
 .keep-awake svg { flex: none; color: var(--gold-deep); }
 
 /* ====== PODZIĘKOWANIE ====== */
 
-.done-img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-}
+#state-done .arch { margin-left: auto; margin-right: auto; }
 
 #done-summary { margin-bottom: 6px; }
 
 #done-skipped { margin: 0 0 6px; color: #a4642e; }
 
-#more-btn { margin-top: 18px; }
+#more-btn { margin-top: 20px; }
 
 /* ====== STOPKA ====== */
 
 .foot {
+  position: relative;
+  z-index: 1;
   text-align: center;
-  padding: 10px 0 26px;
+  padding: 4px 0 max(26px, env(safe-area-inset-bottom));
   font-size: 13px;
-  letter-spacing: .18em;
+  letter-spacing: .26em;
+  text-indent: .26em;
   text-transform: uppercase;
-  color: #b3a384;
+  color: #ab9a7d;
+}
+
+.foot-rule {
+  display: block;
+  width: 46px;
+  height: 1px;
+  margin: 0 auto 12px;
+  background: var(--gold-pale);
+}
+
+.foot-heart { color: var(--gold); letter-spacing: 0; }
+
+/* ====== WIĘKSZE EKRANY ====== */
+
+@media (min-width: 700px) {
+  .invite-head, .invite-body { max-width: 560px; }
+  .arch { width: 360px; }
+  .title { font-size: 35px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-img, .hero-text, .state { animation: none; }
+  .reveal, .arch-img, .btn-gold::after { animation: none; }
 }
