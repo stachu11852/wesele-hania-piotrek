@@ -1,4 +1,4 @@
-# CLAUDE.md – Wesele Upload (v1)
+# CLAUDE.md – Wesele Upload (v2)
 
 Kontekst dla Claude Code. Specyfikacja produktowa: `SPEC.md` w tym samym folderze – to źródło prawdy.
 
@@ -61,9 +61,36 @@ Dane lądują bezpośrednio na Drive (Drive = magazyn docelowy i backup). Kod w 
 8. Design: topowy poziom wizualny (frontend-design skill), zdjęcia pary zoptymalizowane do weba, animacje tylko CSS – budżet <3 s pierwszego renderu na LTE jest nadrzędny.
 9. `plakat.html` (druk A4, CSS print) z osadzonym QR i instrukcją 3-krokową – część MVP, ta sama estetyka co strona.
 
-## Konwencje i struktura katalogów
+## Konwencje i struktura katalogów (v2 – stan faktyczny)
 
-Do uzupełnienia w v2 po pierwszym sprincie – zaproponuj strukturę przy inicjalizacji projektu, nie wymyślamy jej tu z góry.
+```
+Wedding_upoader/              ← root repo: github.com/stachu11852/wesele-hania-piotrek
+├── docs/                     ← GitHub Pages (branch main, katalog /docs)
+│   ├── index.html            ← strona gościa (3 stany: start/wysyłka/podziękowanie)
+│   ├── app.js                ← SCRIPT_URL + silnik uploadu (chunki 8 MiB, retry, 308)
+│   ├── style.css             ← estetyka "golden hour" (kremy, złoto, Cormorant Garamond)
+│   ├── plakat.html           ← plakat A4 do druku (samodzielny, style inline)
+│   └── assets/               ← hero.webp/jpg, sparklers.webp/jpg, qr.svg
+├── apps-script/              ← kopia źródła Apps Script (push przez clasp)
+│   ├── Code.gs               ← initUpload + resumable session (scope drive.file)
+│   └── appsscript.json       ← manifest: drive.file + script.external_request, webapp Anyone
+├── zdjecia/ + foto_src/      ← oryginały zdjęć pary (gitignore – prywatne)
+├── INSTRUKCJA.md             ← wdrożenie/testy dla właściciela
+└── SPEC.md / CLAUDE.md / README.md
+```
+
+## Identyfikatory wdrożenia (produkcja)
+
+- **Konto Google:** bartosz.stachowiak1185@gmail.com (clasp `--user default`)
+- **Script ID:** `1jzIaWtnxYecVcW-ga_qELTplUlULasNfiEkIJqUSpwqPpBHqZWyTZnvo`
+- **Deployment:** `AKfycbwK6ZotOm4J1l0LXBvXrQAWWCfjcGA-8zu5qv7wXL9j4dlQLqN79696PGBhDU2nVQyu`
+  (URL = SCRIPT_URL w `docs/app.js`; aktualizować ISTNIEJĄCE wdrożenie, nie tworzyć nowych URL-i)
+- **Strona:** https://stachu11852.github.io/wesele-hania-piotrek/ (treść kodu QR w `docs/assets/qr.svg`)
+- **Rozstrzygnięcie scope (z "Znane ryzyka"):** wybrano `drive.file` – folder główny tworzy
+  skrypt (funkcja `setup()`), ID w `PropertiesService` (`ROOT_FOLDER_ID`). Skrypt nie ma
+  dostępu do reszty prywatnego Drive.
+- Workflow zmian: front → `git push` (Pages samo się odświeża); backend →
+  `clasp --user default push` + Wdróż → Zarządzaj wdrożeniami → Nowa wersja (URL bez zmian).
 
 ## Znane ryzyka do zweryfikowania w implementacji
 
