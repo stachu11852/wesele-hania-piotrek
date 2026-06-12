@@ -278,7 +278,7 @@ body {
   width: 100%;
   border-radius: 12px;
   margin-bottom: 20px;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 1 / 1; /* zdjęcie v2 jest kwadratowe; poprzednie (zimne ognie) było 3/2 */
   object-fit: cover;
 }
 
